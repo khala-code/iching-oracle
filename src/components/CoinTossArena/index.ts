@@ -1,0 +1,1 @@
+export { CoinTossArena } from './CoinTossArena';

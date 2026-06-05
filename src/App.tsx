@@ -1,122 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import { CoinTossArena } from './components/CoinTossArena';
+import type { TossResult } from './types/iching';
+import { LINE_LABELS } from './types/iching';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [lines, setLines] = useState<TossResult[]>([]);
+
+  function handleToss(result: TossResult) {
+    if (!result.valid) return;
+    setLines((prev) => (prev.length < 6 ? [...prev, result] : prev));
+  }
+
+  function reset() {
+    setLines([]);
+  }
+
+  const done = lines.length === 6;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <main style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1rem', gap: '2rem' }}>
+      <h1 style={{ fontFamily: 'serif', letterSpacing: '0.1em', color: 'rgba(255,220,100,0.85)', margin: 0 }}>
+        易經 · I Ching Oracle
+      </h1>
+
+      {/* Hexagram lines — built bottom-up */}
+      {lines.length > 0 && (
+        <section aria-label="Hexagram lines cast so far">
+          <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column-reverse', gap: '0.4rem' }}>
+            {lines.map((r, i) => (
+              <li key={i} style={{ fontFamily: 'monospace', fontSize: '0.9rem', color: 'rgba(255,220,100,0.7)', letterSpacing: '0.06em' }}>
+                Line {i + 1}: {LINE_LABELS[r.lineValue]}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {!done && (
+        <>
+          <p style={{ color: 'rgba(255,220,100,0.5)', fontSize: '0.85rem', margin: 0 }}>
+            Line {lines.length + 1} of 6
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+          <CoinTossArena onToss={handleToss} />
+        </>
+      )}
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {done && (
+        <section style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <p style={{ color: 'rgba(255,220,100,0.75)', fontFamily: 'serif', fontSize: '1.1rem' }}>
+            Hexagram complete — reading coming in Phase 1.
+          </p>
+          <button
+            onClick={reset}
+            style={{
+              padding: '0.5rem 1.5rem',
+              background: 'transparent',
+              border: '1px solid rgba(255,220,100,0.3)',
+              borderRadius: '2px',
+              color: 'rgba(255,220,100,0.8)',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Consult again
+          </button>
+        </section>
+      )}
+    </main>
+  );
 }
 
-export default App
+export default App;

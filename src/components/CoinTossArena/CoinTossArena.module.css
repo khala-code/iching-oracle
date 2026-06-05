@@ -1,0 +1,83 @@
+.arena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.canvas {
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #1a1508 0%, #0d0b04 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 220, 100, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.6);
+  touch-action: none;
+  display: block;
+}
+
+/* ─── Charge bar ─── */
+.chargeBarTrack {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 220, 100, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.chargeBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,180,30,0.6), rgba(255,220,100,1));
+  border-radius: 2px;
+  transition: width 0.03s linear;
+}
+
+/* ─── Toss button ─── */
+.tossButton {
+  padding: 0.6rem 1.8rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  color: rgba(255, 220, 100, 0.9);
+  background: transparent;
+  border: 1px solid rgba(255, 220, 100, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease,
+    transform 80ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tossButton:hover:not(:disabled) {
+  background: rgba(255, 220, 100, 0.07);
+  border-color: rgba(255, 220, 100, 0.55);
+}
+
+.tossButton[data-charging='true'] {
+  background: rgba(255, 220, 100, 0.12);
+  border-color: rgba(255, 220, 100, 0.7);
+  transform: scale(0.97);
+}
+
+.tossButton[data-invalid='true'] {
+  border-color: rgba(255, 80, 80, 0.5);
+  color: rgba(255, 120, 120, 0.9);
+}
+
+.tossButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Status line ─── */
+.status {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: rgba(255, 220, 100, 0.45);
+  text-align: center;
+  min-height: 1.2em;
+  margin: 0;
+}
