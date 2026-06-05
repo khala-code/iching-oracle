@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# 易經占卜 · I Ching Oracle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based I Ching consultation tool. Cast three coins, build a hexagram line by line, and receive a prewritten reading for the hexagram revealed.
 
-Currently, two official plugins are available:
+> *Phase 1 — The Oracle Answers*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## What It Does
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Coin toss physics** — hold and release a button to throw three coins; a canvas circle acts as the throw boundary, discarding tosses that land outside it so every result is a fair, unforced cast
+- **Hexagram builder** — six lines are built from the bottom up, each determined by the sum of the three coins (heads = 3, tails = 2); moving lines are flagged
+- **Oracle reading** — on completion, the app looks up the resulting hexagram (1–64) and displays a prewritten summary of its classical meaning
+- **All 64 hexagrams** covered with base summaries in Phase 1
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Choice |
+|---|---|
+| Framework | React 18 + TypeScript |
+| Build tool | Vite |
+| Physics / canvas | Custom canvas 2D (no engine dependency) |
+| Styling | CSS Modules / TBD |
+| Data | Static JSON — hexagram definitions |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
+```
+iching-oracle/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── CoinTossArena/     # Canvas circle + coin physics
+│   │   ├── HexagramDisplay/   # Six-line builder UI
+│   │   └── OracleReading/     # Reading panel
+│   ├── data/
+│   │   └── hexagrams.ts       # All 64 hexagram summaries
+│   ├── hooks/
+│   │   └── useCoinToss.ts     # Toss logic + line-value calculation
+│   ├── types/
+│   │   └── iching.ts          # Line, Hexagram, TossResult types
+│   ├── App.tsx
+│   └── main.tsx
+├── index.html
+├── vite.config.ts
+└── tsconfig.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+### Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## How a Reading Works
+
+The classical three-coin method assigns values to each coin:
+
+| Face | Value |
+|---|---|
+| Heads (Yang) | 3 |
+| Tails (Yin) | 2 |
+
+The three coins are summed to score a line:
+
+| Sum | Line type | Symbol |
+|---|---|---|
+| 6 | Old Yin (moving) | `-- x --` |
+| 7 | Young Yang | `———` |
+| 8 | Young Yin | `-- --` |
+| 9 | Old Yang (moving) | `———o` |
+
+Six lines are cast from the **bottom up** to form the hexagram. Moving lines indicate a second hexagram (the relating hexagram) — tracked for Phase 2.
+
+---
+
+## Coin Toss UI
+
+- A **circular arena** is drawn on canvas; coins that land outside the boundary are ignored and the toss is re-prompted — no invalid throws enter the reading
+- The **throw button** is held to charge the toss and released to cast; timing/pressure is fed as a seed offset to the physics sim so no two tosses are identical
+- Coins animate with **canvas 2D physics** — velocity, spin, and bounce — before settling to heads or tails
+
+---
+
+## Roadmap
+
+### Phase 1 — The Oracle Answers *(current)*
+- [x] Project setup (React + TypeScript + Vite)
+- [ ] Coin toss arena (canvas + boundary circle)
+- [ ] Physics simulation (toss button, coin bounce/settle)
+- [ ] Line-value calculation from toss result
+- [ ] Hexagram builder (six-line display, bottom-up)
+- [ ] All 64 hexagram summaries (static data)
+- [ ] Oracle reading panel
+
+### Phase 2 — Moving Lines
+- [ ] Detect moving lines and derive the relating hexagram
+- [ ] Display both primary and relating hexagram readings
+- [ ] Per-line commentary for moving lines
+
+### Phase 3 — Depth & Polish
+- [ ] Expanded hexagram text (judgment, image, commentary)
+- [ ] Session history / reading log
+- [ ] Accessibility pass
+- [ ] Mobile optimisation
+
+---
+
+## Contributing
+
+Work is done on feature branches — do not push directly to `main`.
+
+```
+main          ← stable / deployed
+develop       ← integration branch (optional)
+feature/*     ← new features
+docs/*        ← documentation only
+fix/*         ← bug fixes
+```
+
+Open a PR into `main` when a phase is complete and all items in the roadmap checklist are ticked.
+
+---
+
+## Licence
+
+MIT
