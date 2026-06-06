@@ -1,0 +1,79 @@
+// ─── Hexagrams ─────────────────────────────────────────────────────────
+// Key: 6-char string of line values bottom-to-top, yang=1 yin=0
+// e.g. '111111' = all yang = Hexagram 1 乾
+
+export interface HexagramData {
+  number: number;
+  chinese: string;
+  pinyin: string;
+  english: string;
+  lower: string; // trigram key (lines 1-3)
+  upper: string; // trigram key (lines 4-6)
+}
+
+export const HEXAGRAMS: Record<string, HexagramData> = {
+  '111111': { number:  1, chinese: '乾',   pinyin: 'Qián',     english: 'The Creative',          lower: '111', upper: '111' },
+  '000000': { number:  2, chinese: '坤',   pinyin: 'Kūn',      english: 'The Receptive',         lower: '000', upper: '000' },
+  '010100': { number:  3, chinese: '屯',   pinyin: 'Zhūn',     english: 'Difficulty at the Beginning', lower: '100', upper: '010' },
+  '000010': { number:  4, chinese: '蒙',   pinyin: 'Méng',     english: 'Youthful Folly',        lower: '010', upper: '001' },
+  '010111': { number:  5, chinese: '需',   pinyin: 'Xū',       english: 'Waiting',               lower: '111', upper: '010' },
+  '111010': { number:  6, chinese: '诉',   pinyin: 'Sòng',     english: 'Conflict',              lower: '010', upper: '111' },
+  '000010': { number:  7, chinese: '师',   pinyin: 'Shī',      english: 'The Army',              lower: '010', upper: '000' },
+  '010000': { number:  8, chinese: '比',   pinyin: 'Bǐ',       english: 'Holding Together',      lower: '000', upper: '010' },
+  '011111': { number:  9, chinese: '小畜', pinyin: 'Xiǎo Chù', english: 'Small Taming',          lower: '111', upper: '011' },
+  '111110': { number: 10, chinese: '履',   pinyin: 'Lǚ',       english: 'Treading',              lower: '110', upper: '111' },
+  '000111': { number: 11, chinese: '泰',   pinyin: 'Tài',      english: 'Peace',                 lower: '111', upper: '000' },
+  '111000': { number: 12, chinese: '否',   pinyin: 'Pǐ',       english: 'Standstill',            lower: '000', upper: '111' },
+  '111101': { number: 13, chinese: '同人', pinyin: 'Tóng Rén', english: 'Fellowship',            lower: '101', upper: '111' },
+  '101000': { number: 14, chinese: '大有', pinyin: 'Dà Yǒu',  english: 'Great Possession',      lower: '000', upper: '101' },
+  '000100': { number: 15, chinese: '谦',   pinyin: 'Qiān',     english: 'Modesty',               lower: '001', upper: '000' },
+  '001000': { number: 16, chinese: '豫',   pinyin: 'Yù',       english: 'Enthusiasm',            lower: '000', upper: '100' },
+  '110100': { number: 17, chinese: '随',   pinyin: 'Suí',      english: 'Following',             lower: '100', upper: '110' },
+  '001011': { number: 18, chinese: '蠢',   pinyin: 'Gǔ',       english: 'Work on the Decayed',   lower: '011', upper: '001' },
+  '000110': { number: 19, chinese: '临',   pinyin: 'Lín',      english: 'Approach',              lower: '110', upper: '000' },
+  '011000': { number: 20, chinese: '观',   pinyin: 'Guān',     english: 'Contemplation',         lower: '000', upper: '011' },
+  '101100': { number: 21, chinese: '噬嚙', pinyin: 'Shì Kè', english: 'Biting Through',        lower: '100', upper: '101' },
+  '001101': { number: 22, chinese: '贲',   pinyin: 'Bì',       english: 'Grace',                 lower: '101', upper: '001' },
+  '000001': { number: 23, chinese: '尚',   pinyin: 'Bō',       english: 'Splitting Apart',       lower: '001', upper: '000' },
+  '100000': { number: 24, chinese: '复',   pinyin: 'Fù',       english: 'Return',                lower: '000', upper: '100' },
+  '111100': { number: 25, chinese: '无妻', pinyin: 'Wú Wàng', english: 'Innocence',             lower: '100', upper: '111' },
+  '001111': { number: 26, chinese: '大畜', pinyin: 'Dà Chù',  english: 'Great Taming',          lower: '111', upper: '001' },
+  '100001': { number: 27, chinese: '颐',   pinyin: 'Yí',       english: 'Nourishment',           lower: '001', upper: '100' },
+  '011110': { number: 28, chinese: '大过', pinyin: 'Dà Guò',  english: 'Great Excess',          lower: '110', upper: '011' },
+  '010010': { number: 29, chinese: '坎',   pinyin: 'Kǎn',      english: 'The Abysmal',           lower: '010', upper: '010' },
+  '101101': { number: 30, chinese: '离',   pinyin: 'Lí',       english: 'The Clinging',          lower: '101', upper: '101' },
+  '110001': { number: 31, chinese: '咸',   pinyin: 'Xián',     english: 'Influence',             lower: '001', upper: '110' },
+  '100011': { number: 32, chinese: '恒',   pinyin: 'Héng',     english: 'Duration',              lower: '011', upper: '100' },
+  '111001': { number: 33, chinese: '遁',   pinyin: 'Dùn',      english: 'Retreat',               lower: '001', upper: '111' },
+  '100111': { number: 34, chinese: '大壮', pinyin: 'Dà Zhùang',english: 'Great Power',           lower: '111', upper: '100' },
+  '101000': { number: 35, chinese: '晋',   pinyin: 'Jìn',      english: 'Progress',              lower: '000', upper: '101' },
+  '000101': { number: 36, chinese: '明夷', pinyin: 'Míng Yí',  english: 'Darkening of the Light',lower: '101', upper: '000' },
+  '101011': { number: 37, chinese: '家人', pinyin: 'Jiā Rén', english: 'The Family',            lower: '011', upper: '101' },
+  '110101': { number: 38, chinese: '睽',   pinyin: 'Kuí',      english: 'Opposition',            lower: '101', upper: '110' },
+  '010001': { number: 39, chinese: '蹇',   pinyin: 'Jiǎn',     english: 'Obstruction',           lower: '001', upper: '010' },
+  '100010': { number: 40, chinese: '解',   pinyin: 'Xiè',      english: 'Deliverance',           lower: '010', upper: '100' },
+  '110001': { number: 41, chinese: '损',   pinyin: 'Sǔn',      english: 'Decrease',              lower: '001', upper: '110' },
+  '011110': { number: 42, chinese: '益',   pinyin: 'Yì',       english: 'Increase',              lower: '110', upper: '011' },
+  '111110': { number: 43, chinese: '夸',   pinyin: 'Guài',     english: 'Breakthrough',          lower: '110', upper: '111' },
+  '011111': { number: 44, chinese: '姮',   pinyin: 'Gòu',      english: 'Coming to Meet',        lower: '111', upper: '011' },
+  '000110': { number: 45, chinese: '蠃',   pinyin: 'Cuì',      english: 'Gathering Together',    lower: '110', upper: '000' },
+  '011000': { number: 46, chinese: '升',   pinyin: 'Shēng',    english: 'Pushing Upward',        lower: '000', upper: '011' },
+  '010110': { number: 47, chinese: '困',   pinyin: 'Kùn',      english: 'Oppression',            lower: '110', upper: '010' },
+  '011010': { number: 48, chinese: '井',   pinyin: 'Jǐng',     english: 'The Well',              lower: '010', upper: '011' },
+  '101110': { number: 49, chinese: '革',   pinyin: 'Gé',       english: 'Revolution',            lower: '110', upper: '101' },
+  '011101': { number: 50, chinese: '鼎',   pinyin: 'Dǐng',     english: 'The Cauldron',          lower: '101', upper: '011' },
+  '100100': { number: 51, chinese: '震',   pinyin: 'Zhèn',     english: 'The Arousing',          lower: '100', upper: '100' },
+  '001001': { number: 52, chinese: '艮',   pinyin: 'Gèn',      english: 'Keeping Still',         lower: '001', upper: '001' },
+  '001011': { number: 53, chinese: '渐',   pinyin: 'Jiàn',     english: 'Development',           lower: '001', upper: '011' },
+  '110100': { number: 54, chinese: '归妹', pinyin: 'Guī Mèi', english: 'The Marrying Maiden',   lower: '100', upper: '110' },
+  '101100': { number: 55, chinese: '丰',   pinyin: 'Fēng',     english: 'Abundance',             lower: '100', upper: '101' },
+  '001101': { number: 56, chinese: '旅',   pinyin: 'Lǚ',       english: 'The Wanderer',          lower: '101', upper: '001' },
+  '011011': { number: 57, chinese: '巽',   pinyin: 'Xùn',      english: 'The Gentle',            lower: '011', upper: '011' },
+  '110110': { number: 58, chinese: '兆',   pinyin: 'Duì',      english: 'The Joyous',            lower: '110', upper: '110' },
+  '010011': { number: 59, chinese: '派',   pinyin: 'Huàn',     english: 'Dispersion',            lower: '011', upper: '010' },
+  '110010': { number: 60, chinese: '节',   pinyin: 'Jié',      english: 'Limitation',            lower: '010', upper: '110' },
+  '110011': { number: 61, chinese: '中孚', pinyin: 'Zhōng Fú',english: 'Inner Truth',           lower: '011', upper: '110' },
+  '001100': { number: 62, chinese: '小过', pinyin: 'Xiǎo Guò',english: 'Small Excess',          lower: '001', upper: '100' },
+  '010101': { number: 63, chinese: '既济', pinyin: 'Jì Jì',  english: 'After Completion',      lower: '101', upper: '010' },
+  '101010': { number: 64, chinese: '未济', pinyin: 'Wèi Jì',  english: 'Before Completion',     lower: '010', upper: '101' },
+};
