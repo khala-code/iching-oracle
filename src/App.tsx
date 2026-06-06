@@ -7,7 +7,6 @@ import type { TossResult } from './types/iching';
 import { LINE_LABELS } from './types/iching';
 import './App.css';
 
-// Shared ghost-button style — used in two places
 const ghostBtn: React.CSSProperties = {
   padding: '0.4rem 1rem',
   background: 'transparent',
@@ -77,42 +76,46 @@ function App() {
             margin: 0,
             display: 'flex',
             flexDirection: 'column-reverse',
-            gap: '0.4rem',
+            gap: '0.35rem',
           }}>
-            {lines.map((r, i) => (
-              <li
-                key={i}
-                style={{
-                  fontFamily: 'monospace',
-                  fontSize: '0.9rem',
-                  color: 'rgba(255,220,100,0.7)',
-                  letterSpacing: '0.06em',
-                }}
-              >
-                Line {i + 1}: {LINE_LABELS[r.lineValue]}
-              </li>
-            ))}
+            {lines.map((r, i) => {
+              const label = LINE_LABELS[r.lineValue];
+              return (
+                <li
+                  key={i}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto',
+                    columnGap: '1.5rem',
+                    alignItems: 'baseline',
+                    fontFamily: 'monospace',
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,220,100,0.7)',
+                    letterSpacing: '0.06em',
+                    minWidth: '260px',
+                  }}
+                >
+                  <span style={{ textAlign: 'left' }}>
+                    Line {i + 1} · {label.name}
+                  </span>
+                  <span style={{ textAlign: 'right', opacity: 0.85 }}>
+                    {label.symbol}
+                  </span>
+                </li>
+              );
+            })}
           </ol>
 
-          {/* Undo / reset controls — visible whenever at least one line exists */}
           <div style={{
             display: 'flex',
             gap: '0.6rem',
             justifyContent: 'center',
             marginTop: '1rem',
           }}>
-            <button
-              style={ghostBtn}
-              onClick={undoLast}
-              aria-label="Remove last line"
-            >
+            <button style={ghostBtn} onClick={undoLast} aria-label="Remove last line">
               ↩ Undo last
             </button>
-            <button
-              style={ghostBtn}
-              onClick={reset}
-              aria-label="Reset the entire reading"
-            >
+            <button style={ghostBtn} onClick={reset} aria-label="Reset the entire reading">
               ✕ Reset reading
             </button>
           </div>

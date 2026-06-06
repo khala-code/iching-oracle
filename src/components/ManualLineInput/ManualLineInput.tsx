@@ -3,8 +3,6 @@ import type { CoinFace, TossResult, LineValue } from '../../types/iching';
 import { LINE_LABELS } from '../../types/iching';
 import styles from './ManualLineInput.module.css';
 
-// ─── Helpers ────────────────────────────────────────────────────────────
-
 type CoinSlot = CoinFace | null;
 
 function coinsToLineValue(coins: [CoinFace, CoinFace, CoinFace]): LineValue {
@@ -22,8 +20,6 @@ const QUICK_LABELS: Record<LineValue, string> = {
   8: '8  Young Yin',
   9: '9  Old Yang',
 };
-
-// ─── Component ───────────────────────────────────────────────────────────────
 
 interface Props {
   onLine: (result: TossResult) => void;
@@ -57,11 +53,10 @@ export function ManualLineInput({ onLine, disabled = false }: Props) {
 
   const submitQuick = useCallback((lv: LineValue) => {
     if (disabled) return;
-    // Derive a canonical coin set for the value
     const faceMap: Record<LineValue, [CoinFace, CoinFace, CoinFace]> = {
       6: ['tails', 'tails', 'tails'],
-      7: ['heads', 'tails', 'tails'],   // 3+2+2
-      8: ['tails', 'heads', 'tails'],   // 2+3+2 — symmetric for display
+      7: ['heads', 'tails', 'tails'],
+      8: ['tails', 'heads', 'tails'],
       9: ['heads', 'heads', 'heads'],
     };
     onLine({ coins: faceMap[lv], lineValue: lv, valid: true });
@@ -75,10 +70,13 @@ export function ManualLineInput({ onLine, disabled = false }: Props) {
     return face === 'heads' ? '陽  Heads' : '陰  Tails';
   };
 
+  // Live preview using split label
+  const previewText = lineValue !== null
+    ? `${LINE_LABELS[lineValue].name}  ${LINE_LABELS[lineValue].symbol}`
+    : 'Set all three coins to compute the line';
+
   return (
     <div className={styles.root}>
-
-      {/* ── Coin toggles ── */}
       <div className={styles.coinsRow} role="group" aria-label="Enter three coin faces">
         {([0, 1, 2] as const).map((idx) => (
           <button
@@ -104,14 +102,8 @@ export function ManualLineInput({ onLine, disabled = false }: Props) {
         ))}
       </div>
 
-      {/* ── Live preview ── */}
-      <p className={styles.preview} aria-live="polite">
-        {lineValue !== null
-          ? LINE_LABELS[lineValue]
-          : 'Set all three coins to compute the line'}
-      </p>
+      <p className={styles.preview} aria-live="polite">{previewText}</p>
 
-      {/* ── Confirm button ── */}
       <div className={styles.actions}>
         <button
           className={styles.addBtn}
@@ -131,7 +123,6 @@ export function ManualLineInput({ onLine, disabled = false }: Props) {
         </button>
       </div>
 
-      {/* ── Quick-entry row ── */}
       <div className={styles.quickRow}>
         <span className={styles.quickLabel}>Quick</span>
         {QUICK_VALUES.map((lv) => (

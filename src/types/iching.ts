@@ -2,11 +2,16 @@
 // Sum of three coins (heads=3, tails=2)
 export type LineValue = 6 | 7 | 8 | 9;
 
-export const LINE_LABELS: Record<LineValue, string> = {
-  6: 'Old Yin (moving)   ── x ──',
-  7: 'Young Yang          ───────',
-  8: 'Young Yin           ── ──',
-  9: 'Old Yang (moving)  ───o───',
+export interface LineLabel {
+  name: string;
+  symbol: string;
+}
+
+export const LINE_LABELS: Record<LineValue, LineLabel> = {
+  6: { name: 'Old Yin (moving)',  symbol: '── x ──' },
+  7: { name: 'Young Yang',        symbol: '───────' },
+  8: { name: 'Young Yin',         symbol: '── ──' },
+  9: { name: 'Old Yang (moving)', symbol: '───o───' },
 };
 
 // ─── Toss result ────────────────────────────────────────────────────────────
