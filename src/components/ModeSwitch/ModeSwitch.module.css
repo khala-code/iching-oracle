@@ -1,0 +1,37 @@
+.root {
+  display: flex;
+  border: 1px solid rgba(255, 220, 100, 0.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.option {
+  flex: 1;
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: rgba(255, 220, 100, 0.4);
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+  white-space: nowrap;
+}
+
+.option + .option {
+  border-left: 1px solid rgba(255, 220, 100, 0.18);
+}
+
+.option[data-active='true'] {
+  background: rgba(255, 220, 100, 0.1);
+  color: rgba(255, 220, 100, 0.9);
+}
+
+.option:hover:not([data-active='true']) {
+  background: rgba(255, 220, 100, 0.05);
+  color: rgba(255, 220, 100, 0.65);
+}
