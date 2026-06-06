@@ -5,7 +5,7 @@ const COIN_RADIUS = 22;
 const FRICTION = 0.985;
 const SPIN_DECAY = 0.93;
 const BOUNCE_DAMPING = 0.45;
-const SETTLE_SPEED = 0.18;  // px/frame below which coin is considered settled
+const SETTLE_SPEED = 0.234;  // px/frame below which coin is considered settled (0.18 * 1.3)
 const ARENA_RADIUS_RATIO = 0.42; // arena circle = 42% of canvas width
 
 function randomBetween(a: number, b: number) {
