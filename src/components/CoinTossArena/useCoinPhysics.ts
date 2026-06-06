@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react';
-import type { CoinState, CoinFace } from '../../types/iching';
+import type { CoinState } from '../../types/iching';
 
 const COIN_RADIUS = 22;
 const FRICTION = 0.985;

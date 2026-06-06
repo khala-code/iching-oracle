@@ -6,10 +6,11 @@ import styles from './ManualLineInput.module.css';
 type CoinSlot = CoinFace | null;
 
 function coinsToLineValue(coins: [CoinFace, CoinFace, CoinFace]): LineValue {
-  return coins.reduce(
-    (sum, f) => sum + (f === 'heads' ? 3 : 2),
+  const sum = coins.reduce<number>(
+    (acc, f) => acc + (f === 'heads' ? 3 : 2),
     0,
-  ) as LineValue;
+  );
+  return sum as LineValue;
 }
 
 const QUICK_VALUES: LineValue[] = [6, 7, 8, 9];

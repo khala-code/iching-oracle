@@ -4,13 +4,14 @@ export type LineValue = 6 | 7 | 8 | 9;
 
 export interface LineLabel {
   name: string;
+  symbol: string;
 }
 
 export const LINE_LABELS: Record<LineValue, LineLabel> = {
-  6: { name: 'Old Yin (moving)'  },
-  7: { name: 'Young Yang'        },
-  8: { name: 'Young Yin'         },
-  9: { name: 'Old Yang (moving)' },
+  6: { name: 'Old Yin (moving)',  symbol: '— × —' },
+  7: { name: 'Young Yang',        symbol: '———'    },
+  8: { name: 'Young Yin',         symbol: '— —'    },
+  9: { name: 'Old Yang (moving)', symbol: '—●—'    },
 };
 
 // ─── Toss result ────────────────────────────────────────────────────────────

@@ -84,8 +84,8 @@ function renderFrame(canvas: HTMLCanvasElement, coins: CoinState[]) {
 
 // ─── Line-value calculation ──────────────────────────────────────────────────
 function calcLineValue(coins: CoinState[]): LineValue {
-  const sum = coins.reduce((acc, c) => acc + (c.face === 'heads' ? 3 : 2), 0) as LineValue;
-  return sum;
+  const sum = coins.reduce<number>((acc, c) => acc + (c.face === 'heads' ? 3 : 2), 0);
+  return sum as LineValue;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -115,7 +115,6 @@ export function CoinTossArena({ onToss, disabled = false }: Props) {
       const allInside = coins.every((c) => c.insideBoundary);
       if (!allInside) {
         setStatus('invalid');
-        // Dim invalid coins are already drawn; let user retry
         return;
       }
       const lineValue = calcLineValue(coins);
