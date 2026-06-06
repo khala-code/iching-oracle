@@ -2,11 +2,11 @@ import { useRef, useCallback } from 'react';
 import type { CoinState } from '../../types/iching';
 
 const COIN_RADIUS = 22;
-const FRICTION = 0.985;
-const SPIN_DECAY = 0.93;
+const FRICTION = 0.965;      // was 0.985 — decelerates noticeably faster
+const SPIN_DECAY = 0.88;     // was 0.93 — spin dies out sooner
 const BOUNCE_DAMPING = 0.45;
-const SETTLE_SPEED = 0.234;  // px/frame below which coin is considered settled (0.18 * 1.3)
-const ARENA_RADIUS_RATIO = 0.42; // arena circle = 42% of canvas width
+const SETTLE_SPEED = 0.234;  // px/frame below which coin is considered settled
+const ARENA_RADIUS_RATIO = 0.42;
 
 function randomBetween(a: number, b: number) {
   return a + Math.random() * (b - a);
@@ -34,9 +34,8 @@ export function useCoinPhysics() {
       const cy = canvasHeight / 2;
       const arenaR = canvasWidth * ARENA_RADIUS_RATIO;
 
-      const speed = 3 + charge * 7; // higher charge → faster throw
+      const speed = 3 + charge * 7;
 
-      // Spawn three coins near the centre with randomised velocities
       coinsRef.current = Array.from({ length: 3 }, (_, i) => {
         const angle = (i / 3) * Math.PI * 2 + Math.random() * 0.8;
         const mag = speed * randomBetween(0.6, 1.0);
@@ -71,20 +70,17 @@ export function useCoinPhysics() {
           c.angle += c.spin;
           c.spin *= SPIN_DECAY;
 
-          // Bounce off arena boundary
           const dx = c.x - cx;
           const dy = c.y - cy;
           const dist = Math.sqrt(dx * dx + dy * dy);
           const maxDist = arenaR - COIN_RADIUS;
 
           if (dist > maxDist) {
-            // Reflect velocity along the normal
             const nx = dx / dist;
             const ny = dy / dist;
             const dot = c.vx * nx + c.vy * ny;
             c.vx = (c.vx - 2 * dot * nx) * BOUNCE_DAMPING;
             c.vy = (c.vy - 2 * dot * ny) * BOUNCE_DAMPING;
-            // Push coin back inside
             c.x = cx + nx * (maxDist - 1);
             c.y = cy + ny * (maxDist - 1);
           }
@@ -95,12 +91,10 @@ export function useCoinPhysics() {
             c.vx = 0;
             c.vy = 0;
             c.spin = 0;
-            // Determine face: bias slightly by final angle for visual fun
             const normalised = ((c.angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
             c.face = (normalised < Math.PI ? Math.random() > 0.5 : Math.random() > 0.5)
               ? 'heads'
               : 'tails';
-            // Final boundary check
             const fdx = c.x - cx;
             const fdy = c.y - cy;
             c.insideBoundary = Math.sqrt(fdx * fdx + fdy * fdy) <= arenaR - COIN_RADIUS;
