@@ -8,9 +8,9 @@ export interface LineLabel {
 }
 
 export const LINE_LABELS: Record<LineValue, LineLabel> = {
-  6: { name: 'Old Yin (moving)',  symbol: '── x ──' },
+  6: { name: 'Old Yin (moving)',  symbol: '──  x  ──' },
   7: { name: 'Young Yang',        symbol: '───────' },
-  8: { name: 'Young Yin',         symbol: '── ──' },
+  8: { name: 'Young Yin',         symbol: '──     ──' },
   9: { name: 'Old Yang (moving)', symbol: '───o───' },
 };
 
