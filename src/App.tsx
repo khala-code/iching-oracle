@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { CoinTossArena } from './components/CoinTossArena';
+import { ManualLineInput } from './components/ManualLineInput';
+import { ModeSwitch } from './components/ModeSwitch';
+import type { InputMode } from './components/ModeSwitch';
 import type { TossResult } from './types/iching';
 import { LINE_LABELS } from './types/iching';
 import './App.css';
 
 function App() {
   const [lines, setLines] = useState<TossResult[]>([]);
+  const [mode, setMode] = useState<InputMode>('simulated');
 
   function handleToss(result: TossResult) {
     if (!result.valid) return;
@@ -19,17 +23,44 @@ function App() {
   const done = lines.length === 6;
 
   return (
-    <main style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1rem', gap: '2rem' }}>
-      <h1 style={{ fontFamily: 'serif', letterSpacing: '0.1em', color: 'rgba(255,220,100,0.85)', margin: 0 }}>
+    <main style={{
+      minHeight: '100dvh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '2rem 1rem',
+      gap: '1.5rem',
+    }}>
+      <h1 style={{
+        fontFamily: 'serif',
+        letterSpacing: '0.1em',
+        color: 'rgba(255,220,100,0.85)',
+        margin: 0,
+      }}>
         易經 · I Ching Oracle
       </h1>
 
       {/* Hexagram lines — built bottom-up */}
       {lines.length > 0 && (
         <section aria-label="Hexagram lines cast so far">
-          <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column-reverse', gap: '0.4rem' }}>
+          <ol style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column-reverse',
+            gap: '0.4rem',
+          }}>
             {lines.map((r, i) => (
-              <li key={i} style={{ fontFamily: 'monospace', fontSize: '0.9rem', color: 'rgba(255,220,100,0.7)', letterSpacing: '0.06em' }}>
+              <li
+                key={i}
+                style={{
+                  fontFamily: 'monospace',
+                  fontSize: '0.9rem',
+                  color: 'rgba(255,220,100,0.7)',
+                  letterSpacing: '0.06em',
+                }}
+              >
                 Line {i + 1}: {LINE_LABELS[r.lineValue]}
               </li>
             ))}
@@ -42,13 +73,27 @@ function App() {
           <p style={{ color: 'rgba(255,220,100,0.5)', fontSize: '0.85rem', margin: 0 }}>
             Line {lines.length + 1} of 6
           </p>
-          <CoinTossArena onToss={handleToss} />
+
+          <ModeSwitch mode={mode} onChange={setMode} />
+
+          {mode === 'simulated'
+            ? <CoinTossArena onToss={handleToss} />
+            : <ManualLineInput onLine={handleToss} />}
         </>
       )}
 
       {done && (
-        <section style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <p style={{ color: 'rgba(255,220,100,0.75)', fontFamily: 'serif', fontSize: '1.1rem' }}>
+        <section style={{
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+        }}>
+          <p style={{
+            color: 'rgba(255,220,100,0.75)',
+            fontFamily: 'serif',
+            fontSize: '1.1rem',
+          }}>
             Hexagram complete — reading coming in Phase 1.
           </p>
           <button
