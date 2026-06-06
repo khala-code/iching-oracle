@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CoinTossArena } from './components/CoinTossArena';
 import { ManualLineInput } from './components/ManualLineInput';
 import { ModeSwitch } from './components/ModeSwitch';
+import { LineSymbol } from './components/LineSymbol';
 import type { InputMode } from './components/ModeSwitch';
 import type { TossResult } from './types/iching';
 import { LINE_LABELS } from './types/iching';
@@ -67,7 +68,6 @@ function App() {
         易經 · I Ching Oracle
       </h1>
 
-      {/* Hexagram lines — built bottom-up */}
       {lines.length > 0 && (
         <section aria-label="Hexagram lines cast so far">
           <ol style={{
@@ -78,32 +78,26 @@ function App() {
             flexDirection: 'column-reverse',
             gap: '0.35rem',
           }}>
-            {lines.map((r, i) => {
-              const label = LINE_LABELS[r.lineValue];
-              return (
-                <li
-                  key={i}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr auto',
-                    columnGap: '1.5rem',
-                    alignItems: 'baseline',
-                    fontFamily: 'monospace',
-                    fontSize: '0.9rem',
-                    color: 'rgba(255,220,100,0.7)',
-                    letterSpacing: '0.06em',
-                    minWidth: '260px',
-                  }}
-                >
-                  <span style={{ textAlign: 'left' }}>
-                    Line {i + 1} · {label.name}
-                  </span>
-                  <span style={{ textAlign: 'right', opacity: 0.85 }}>
-                    {label.symbol}
-                  </span>
-                </li>
-              );
-            })}
+            {lines.map((r, i) => (
+              <li
+                key={i}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr auto',
+                  columnGap: '1.5rem',
+                  alignItems: 'center',
+                  fontSize: '0.9rem',
+                  color: 'rgba(255,220,100,0.7)',
+                  letterSpacing: '0.06em',
+                  minWidth: '260px',
+                }}
+              >
+                <span style={{ textAlign: 'left', fontFamily: 'monospace' }}>
+                  Line {i + 1} · {LINE_LABELS[r.lineValue].name}
+                </span>
+                <LineSymbol value={r.lineValue} width={56} color="rgba(255,220,100,0.75)" />
+              </li>
+            ))}
           </ol>
 
           <div style={{
