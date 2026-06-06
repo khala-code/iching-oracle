@@ -7,6 +7,30 @@ import type { TossResult } from './types/iching';
 import { LINE_LABELS } from './types/iching';
 import './App.css';
 
+// Shared ghost-button style — used in two places
+const ghostBtn: React.CSSProperties = {
+  padding: '0.4rem 1rem',
+  background: 'transparent',
+  border: '1px solid rgba(255,220,100,0.2)',
+  borderRadius: '2px',
+  color: 'rgba(255,220,100,0.45)',
+  cursor: 'pointer',
+  fontFamily: 'inherit',
+  fontSize: '0.8rem',
+  letterSpacing: '0.06em',
+};
+
+const primaryBtn: React.CSSProperties = {
+  padding: '0.5rem 1.5rem',
+  background: 'transparent',
+  border: '1px solid rgba(255,220,100,0.3)',
+  borderRadius: '2px',
+  color: 'rgba(255,220,100,0.8)',
+  cursor: 'pointer',
+  fontFamily: 'inherit',
+  letterSpacing: '0.04em',
+};
+
 function App() {
   const [lines, setLines] = useState<TossResult[]>([]);
   const [mode, setMode] = useState<InputMode>('simulated');
@@ -18,6 +42,10 @@ function App() {
 
   function reset() {
     setLines([]);
+  }
+
+  function undoLast() {
+    setLines((prev) => prev.slice(0, -1));
   }
 
   const done = lines.length === 6;
@@ -65,6 +93,29 @@ function App() {
               </li>
             ))}
           </ol>
+
+          {/* Undo / reset controls — visible whenever at least one line exists */}
+          <div style={{
+            display: 'flex',
+            gap: '0.6rem',
+            justifyContent: 'center',
+            marginTop: '1rem',
+          }}>
+            <button
+              style={ghostBtn}
+              onClick={undoLast}
+              aria-label="Remove last line"
+            >
+              ↩ Undo last
+            </button>
+            <button
+              style={ghostBtn}
+              onClick={reset}
+              aria-label="Reset the entire reading"
+            >
+              ✕ Reset reading
+            </button>
+          </div>
         </section>
       )}
 
@@ -96,19 +147,7 @@ function App() {
           }}>
             Hexagram complete — reading coming in Phase 1.
           </p>
-          <button
-            onClick={reset}
-            style={{
-              padding: '0.5rem 1.5rem',
-              background: 'transparent',
-              border: '1px solid rgba(255,220,100,0.3)',
-              borderRadius: '2px',
-              color: 'rgba(255,220,100,0.8)',
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              letterSpacing: '0.04em',
-            }}
-          >
+          <button style={primaryBtn} onClick={reset}>
             Consult again
           </button>
         </section>
