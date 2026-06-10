@@ -49,7 +49,7 @@ export const HEXAGRAMS: Record<string, HexagramData> = {
   '111100': { number: 34, chinese: '大壮', pinyin: 'Dà Zhuàng', english: 'Great Power',                         lower: '111', upper: '100' },  // Heaven/Thunder
   '000101': { number: 35, chinese: '晋',   pinyin: 'Jìn',        english: 'Progress',                            lower: '000', upper: '101' },  // Earth/Fire
   '101000': { number: 36, chinese: '明夷', pinyin: 'Míng Yí',   english: 'Darkening of the Light',              lower: '101', upper: '000' },  // Fire/Earth
-  '011101': { number: 37, chinese: '家人', pinyin: 'Jiā Rén',   english: 'The Family',                          lower: '011', upper: '101' },  // Wind/Fire
+  '101011': { number: 37, chinese: '家人', pinyin: 'Jiā Rén',   english: 'The Family',                          lower: '101', upper: '011' },  // Fire/Wind
   '101110': { number: 38, chinese: '睽',   pinyin: 'Kuí',        english: 'Opposition',                          lower: '101', upper: '110' },  // Fire/Lake
   '001010': { number: 39, chinese: '蹇',   pinyin: 'Jiǎn',       english: 'Obstruction',                         lower: '001', upper: '010' },  // Mountain/Water
   '010100': { number: 40, chinese: '解',   pinyin: 'Xiè',        english: 'Deliverance',                         lower: '010', upper: '100' },  // Water/Thunder
@@ -62,7 +62,7 @@ export const HEXAGRAMS: Record<string, HexagramData> = {
   '010110': { number: 47, chinese: '困',   pinyin: 'Kùn',        english: 'Oppression',                          lower: '010', upper: '110' },  // Water/Lake
   '011010': { number: 48, chinese: '井',   pinyin: 'Jǐng',       english: 'The Well',                            lower: '011', upper: '010' },  // Wind/Water
   '110101': { number: 49, chinese: '革',   pinyin: 'Gé',         english: 'Revolution',                          lower: '110', upper: '101' },  // Lake/Fire
-  '101011': { number: 50, chinese: '鼎',   pinyin: 'Dǐng',       english: 'The Cauldron',                        lower: '101', upper: '011' },  // Fire/Wind
+  '011101': { number: 50, chinese: '鼎',   pinyin: 'Dǐng',       english: 'The Cauldron',                        lower: '011', upper: '101' },  // Wind/Fire
   '100100': { number: 51, chinese: '震',   pinyin: 'Zhèn',       english: 'The Arousing',                        lower: '100', upper: '100' },  // Thunder/Thunder
   '001001': { number: 52, chinese: '艮',   pinyin: 'Gèn',        english: 'Keeping Still',                       lower: '001', upper: '001' },  // Mountain/Mountain
   '001011': { number: 53, chinese: '渐',   pinyin: 'Jiàn',       english: 'Development',                         lower: '001', upper: '011' },  // Mountain/Wind
