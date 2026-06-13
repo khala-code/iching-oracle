@@ -67,7 +67,7 @@ export const HEXAGRAMS: Record<string, HexagramData> = {
   '001001': { number: 52, chinese: '艮',   pinyin: 'Gèn',        english: 'Keeping Still',                       lower: '001', upper: '001' },  // Mountain/Mountain
   '001011': { number: 53, chinese: '渐',   pinyin: 'Jiàn',       english: 'Development',                         lower: '001', upper: '011' },  // Mountain/Wind
   '110100': { number: 54, chinese: '归妹', pinyin: 'Guī Mèi',   english: 'The Marrying Maiden',                 lower: '110', upper: '100' },  // Lake/Thunder
-  '100101': { number: 55, chinese: '丰',   pinyin: 'Fēng',       english: 'Abundance',                           lower: '100', upper: '101' },  // Thunder/Fire
+  '101100': { number: 55, chinese: '丰',   pinyin: 'Fēng',       english: 'Abundance',                           lower: '101', upper: '100' },  // Fire/Thunder
   '001101': { number: 56, chinese: '旅',   pinyin: 'Lǚ',         english: 'The Wanderer',                        lower: '001', upper: '101' },  // Mountain/Fire
   '011011': { number: 57, chinese: '巽',   pinyin: 'Xùn',        english: 'The Gentle',                          lower: '011', upper: '011' },  // Wind/Wind
   '110110': { number: 58, chinese: '兑',   pinyin: 'Duì',        english: 'The Joyous',                          lower: '110', upper: '110' },  // Lake/Lake
